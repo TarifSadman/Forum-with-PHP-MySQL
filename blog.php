@@ -7,6 +7,15 @@ if (!isset($_SESSION['username'])) {
     echo "<script>alert('You need to login first.')</script>";
     exit;
 }
+
+$topics = [];
+try {
+    $stmt = $conn->prepare("SELECT category, title FROM topics");
+    $stmt->execute();
+    $topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
 ?>
 
 
@@ -189,21 +198,23 @@ if (!isset($_SESSION['username'])) {
                     </div>
 
                     <div class="p-4">
-                        <h4 class="fst-italic">Archives</h4>
-                        <ol class="list-unstyled mb-0">
-                            <li><a href="#">March 2021</a></li>
-                            <li><a href="#">February 2021</a></li>
-                            <li><a href="#">January 2021</a></li>
-                            <li><a href="#">December 2020</a></li>
-                            <li><a href="#">November 2020</a></li>
-                            <li><a href="#">October 2020</a></li>
-                            <li><a href="#">September 2020</a></li>
-                            <li><a href="#">August 2020</a></li>
-                            <li><a href="#">July 2020</a></li>
-                            <li><a href="#">June 2020</a></li>
-                            <li><a href="#">May 2020</a></li>
-                            <li><a href="#">April 2020</a></li>
-                        </ol>
+                        <h4 class="fst-italic">Topic List</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($topics as $topic): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($topic['category']); ?></td>
+                                        <td><?php echo htmlspecialchars($topic['title']); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="p-4">

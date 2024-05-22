@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="<?php echo BASE_URL; ?>blog.php">Home</a>
             </li>
             <?php if (!isset($_SESSION['username'])): ?>
               <li class="nav-item">
@@ -36,6 +36,9 @@
               </li>
             <?php endif; ?>
             <?php if (isset($_SESSION['username'])): ?>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo BASE_URL; ?>topic/create.php">Create Topic</a>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <?php echo $_SESSION['username']; ?>
